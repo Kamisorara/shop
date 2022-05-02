@@ -5,7 +5,7 @@ import index from '../views/index.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-		path: '/',
+		path: '/index',
 		name: 'index',
 		component: index
 	},
@@ -18,12 +18,9 @@ const routes = [{
 		component: () => import( /* webpackChunkName: "about" */ '../views/AboutView.vue')
 	},
 	{
-		path: '/homepage',
+		path: '/',
 		name: "homePage",
 		component: () => import("../views/homePage.vue"),
-		children: {
-
-		}
 	}
 ]
 
