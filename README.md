@@ -1,4 +1,4 @@
-# shop_55122105636
+# 基于vue的商城界面
 
 ## Project setup
 ```
