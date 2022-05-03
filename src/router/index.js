@@ -9,13 +9,16 @@ const routes = [
     path: '/',
     name: "homePage",
     component: () => import("../views/homePage.vue"),
+    redirect: "/commodity",
+    children: [
+      {
+        path: '/commodity',
+        name: "commodity",
+        component: () => import("../views/commodity.vue"),
+      },
+    ],
+  },
 
-  },
-  {
-    path: '/commodities',
-    name: "commodity",
-    component: () => import("../views/commodity.vue"),
-  },
 ]
 
 const router = new VueRouter({
