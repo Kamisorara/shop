@@ -1,15 +1,16 @@
 <template>
   <div class="main">
+    <el-carousel indicator-position="outside">
+      <el-carousel-item v-for="item in imagesbox" :key="item">
+        <img :src="item.idView" class="image" />
+      </el-carousel-item>
+    </el-carousel>
     <div class="content">
       <div class="show" v-for="(product, index) in products" :key="index">
         <div class="imgbg">
           <el-image
             :src="require('../assets/photo1.png')"
-            style="
-              height: 180px;
-              width: 180px;
-              margin-top: 30px;
-            "
+            style="height: 180px; width: 180px; margin-top: 30px"
           ></el-image>
         </div>
         <div class="price">¥{{ product.price }}</div>
@@ -33,6 +34,13 @@ export default {
   name: "commodity",
   data() {
     return {
+      imagesbox: [
+        { id: 0, idView: require("../assets/advertise1.png") },
+        { id: 1, idView: require("../assets/advertise2.jpg") },
+        { id: 2, idView: require("../assets/advertise3.jpg") },
+        { id: 3, idView: require("../assets/advertise4.jpg") },
+        { id: 4, idView: require("../assets/advertise5.jpg") },
+      ],
       products: [
         {
           price: 9999,
@@ -196,5 +204,12 @@ div {
 mark {
   background-color: transparent;
   color: #e5c45a;
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
 }
 </style>
