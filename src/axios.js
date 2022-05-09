@@ -13,11 +13,11 @@ const request = axios.create({
   }
 })
 
-
-//在请求头中都要带上token 这样就不用每次都手动添加Header了
+//请求头添加token
 request.interceptors.request.use(config => {
-
-  config.headers['token'] = localStorage.getItem("token")
+  if (localStorage.getItem("token") != null) {
+    config.headers['token'] = localStorage.getItem("token")
+  }
   return config;
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size: 14px">
+  <div style="font-size: 14px" class="foot">
     <div style="margin: 50px 200px 50px 200px">
       <div style="display: flex">
         <div style="flex: 1; display: flex">
@@ -63,6 +63,9 @@
 </script>
 
 <style scoped>
+.foot {
+  background-color: #f9f5f5;
+}
 .foot-title {
   height: 40px;
   line-height: 40px;

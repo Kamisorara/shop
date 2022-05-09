@@ -27,7 +27,7 @@
               <el-avatar icon="el-icon-user-solid"></el-avatar>
             </div>
           </div>
-          <el-button type="text">请登录</el-button>
+          <el-button type="text" @click="toLogin">请登录</el-button>
         </div>
         <div v-show="isLogin">
           <div class="demo-type">
@@ -152,6 +152,9 @@ export default {
     toDetail() {
       this.$router.push("/details");
     },
+    toLogin() {
+      this.$router.push("/login");
+    },
   },
   mounted() {},
 };
@@ -224,7 +227,7 @@ div {
   width: 200px;
   display: inline-block;
   margin-left: 50px;
-  background-color: #e2e4e6;
+  background-color: #e6e9ec;
   border-radius: 30px;
 }
 .content {

@@ -20,15 +20,30 @@
       <div style="flex: 1; display: flex">
         <div style="flex: 1"></div>
         <div style="width: 170px; display: flex">
-          <el-button type="text" style="color: #ffffff" class="top-title"
+          <el-button
+            v-if="!inLogin"
+            type="text"
+            style="color: #ffffff"
+            class="top-title"
+            @click="toLogin"
             >登录</el-button
           >
           <el-button
+            v-if="!inLogin"
             type="text"
             style="color: #ffffff; margin-right: 10px"
             class="top-title"
+            @click="toRegister"
             >注册</el-button
           >
+          <el-button
+            v-if="inLogin"
+            type="text"
+            style="color: #ffffff; margin-right: 10px"
+            class="top-title"
+            >xxx用户，你好！@</el-button
+          >
+
           <div
             style="
               background-color: rgb(223 221 221 / 40%);
@@ -85,6 +100,7 @@ export default {
   data() {
     return {
       input: "",
+      inLogin: false,
     };
   },
   mounted() {},
@@ -96,6 +112,12 @@ export default {
     },
     toIndex() {
       this.$router.push("/commodity");
+    },
+    toLogin() {
+      this.$router.push("/login");
+    },
+    toRegister() {
+      this.$router.push("/register");
     },
   },
 };
