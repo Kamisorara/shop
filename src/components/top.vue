@@ -60,7 +60,7 @@
           src="../assets/logo.png"
           style="cursor: pointer; height: 60px; margin-top: 10px"
         />
-        <div class="title" style="margin-left: 30px">首页</div>
+        <div class="title" style="margin-left: 30px" @click="toIndex">首页</div>
         <div class="title">电子产品</div>
         <div class="title">家具家电</div>
         <div class="title">母婴用品</div>
@@ -94,11 +94,14 @@ export default {
         path: "/home/index",
       });
     },
+    toIndex() {
+      this.$router.push("/commodity");
+    },
   },
 };
-</script>
+</script >
 
-<style>
+<style scoped>
 .top-title:hover {
   cursor: pointer;
   color: #e5e5e5 !important;

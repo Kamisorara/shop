@@ -1,20 +1,71 @@
 <template>
   <div class="main">
-    <el-carousel indicator-position="outside">
-      <el-carousel-item v-for="item in imagesbox" :key="item">
-        <img :src="item.idView" class="image" />
-      </el-carousel-item>
-    </el-carousel>
+    <el-container>
+      <el-aside width="200px">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span style="font-size: 20px">商品分类</span>
+          </div>
+          <div v-for="item in calssifications" :key="item" class="text item">
+            <i :class="item.icon"></i>
+            <a href="#" style="text-decoration: none; color: darkgrey">{{
+              item.title
+            }}</a>
+          </div>
+        </el-card>
+      </el-aside>
+      <el-main
+        ><el-carousel indicator-position="outside" style="border-radius: 30px">
+          <el-carousel-item v-for="item in imagesbox" :key="item">
+            <img :src="item.idView" class="image" />
+          </el-carousel-item> </el-carousel
+      ></el-main>
+      <el-aside width="200px">
+        <div v-show="!isLogin">
+          <div class="demo-type">
+            <div>
+              <el-avatar icon="el-icon-user-solid"></el-avatar>
+            </div>
+          </div>
+          <el-button type="text">请登录</el-button>
+        </div>
+        <div v-show="isLogin">
+          <div class="demo-type">
+            <div>
+              <el-avatar
+                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              ></el-avatar>
+            </div>
+          </div>
+          <p style="font-size: 20px">Hi,XXX</p>
+        </div>
+
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>公告板</span>
+          </div>
+          <div v-for="o in 4" :key="o" class="board_item">
+            <a href="#" style="text-decoration: none; color: darkgrey">{{
+              "今日公告"
+            }}</a>
+          </div>
+        </el-card>
+      </el-aside>
+    </el-container>
     <div class="content">
-      <div class="show" v-for="(product, index) in products" :key="index">
+      <div
+        class="show"
+        v-for="(product, index) in products"
+        :key="index"
+        @click="toDetail"
+      >
         <div class="imgbg">
           <el-image
             :src="require('../assets/photo1.png')"
             style="height: 180px; width: 180px; margin-top: 30px"
           ></el-image>
         </div>
-        <div class="price">¥{{ product.price }}</div>
-        <div class="introduce">{{ product.introduce }}</div>
+        <div class="price" style="font-size: 20px">¥{{ product.price }}</div>
         <div class="store">{{ product.store }}</div>
         <div class="detail">
           <div class="details">
@@ -34,6 +85,7 @@ export default {
   name: "commodity",
   data() {
     return {
+      isLogin: false,
       imagesbox: [
         { id: 0, idView: require("../assets/advertise1.png") },
         { id: 1, idView: require("../assets/advertise2.jpg") },
@@ -44,126 +96,113 @@ export default {
       products: [
         {
           price: 9999,
-          introduce: "是兄弟就来砍我",
           store: "探碗揽月",
           sell: 9999,
           mark: 9999,
         },
         {
           price: 9999,
-          introduce: "是兄弟就来砍我",
           store: "探碗揽月",
           sell: 9999,
           mark: 9999,
         },
         {
           price: 9999,
-          introduce: "是兄弟就来砍我",
           store: "探碗揽月",
           sell: 9999,
           mark: 9999,
         },
         {
           price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
-          store: "探碗揽月",
-          sell: 9999,
-          mark: 9999,
-        },
-        {
-          price: 9999,
-          introduce: "是兄弟就来砍我",
           store: "探碗揽月",
           sell: 9999,
           mark: 9999,
         },
       ],
+      calssifications: [
+        {
+          id: "123123",
+          icon: "el-icon-shopping-cart-full",
+          title: "xxxx",
+        },
+        {
+          id: "123123",
+          icon: "el-icon-shopping-cart-full",
+          title: "xxxx",
+        },
+        {
+          id: "123123",
+          icon: "el-icon-shopping-cart-full",
+          title: "xxxx",
+        },
+        {
+          id: "123123",
+          icon: "el-icon-shopping-cart-full",
+          title: "xxxx",
+        },
+        {
+          id: "123123",
+          icon: "el-icon-shopping-cart-full",
+          title: "xxxx",
+        },
+      ],
     };
   },
+  methods: {
+    toDetail() {
+      this.$router.push("/details");
+    },
+  },
+  mounted() {},
 };
-</script>
-<style>
+</script >
+<style scoped>
+.board_item {
+  text-align: left;
+  font-size: 15px;
+}
+
+/* 头像 */
+.demo-type {
+  margin-top: 60px;
+}
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+
+.box-card {
+  width: 190px;
+}
+
+.el-aside {
+  color: #333;
+  text-align: center;
+}
+
+.el-main {
+  background-color: #f7f9fa;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+}
+
+/* ----- */
 .main {
   width: 1000px;
-
-  /*border: 1px solid red;*/
+  /*border: 1px solbid red;*/
   margin: 0px auto;
 }
 div {
@@ -173,7 +212,6 @@ div {
 .detail {
   font-size: 0px;
   background: url(#) no-repeat 190px center;
-  border: 1px solid #e6e6e6;
 }
 .details {
   display: inline-block;
@@ -183,9 +221,11 @@ div {
   text-indent: 1.2em;
 }
 .show {
-  width: 220px;
+  width: 200px;
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 50px;
+  background-color: #e2e4e6;
+  border-radius: 30px;
 }
 .content {
   font-size: 0px;
@@ -200,6 +240,7 @@ div {
   color: #7f7f7f;
   text-decoration: underline;
   margin-bottom: 5px;
+  font-size: 20px;
 }
 mark {
   background-color: transparent;

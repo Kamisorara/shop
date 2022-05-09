@@ -75,7 +75,7 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: "details",
   data() {
@@ -90,7 +90,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #details {
   width: 1200px;
   margin: 0px auto;
@@ -108,8 +108,6 @@ export default {
 .el-main {
   line-height: 80px;
 }
-
-
 
 #price {
   margin-top: 40px;

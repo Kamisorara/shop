@@ -23,9 +23,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #body {
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  background-color: #fafafa;
 }
 </style>

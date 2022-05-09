@@ -62,7 +62,7 @@
 <script>
 </script>
 
-<style>
+<style scoped>
 .foot-title {
   height: 40px;
   line-height: 40px;
