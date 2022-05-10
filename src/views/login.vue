@@ -91,7 +91,7 @@ export default {
             .then((res) => {
               //访问成功之后获取jwt
               // const jwt = res.headers["authorization"];
-              const jwt = res.data.token;
+              const jwt = res.data.data.token;
               this.$store.commit("SET_TOKEN", jwt);
               this.$store.commit("SAVE_USERNAME", this.loginForm.username);
               this.$message({

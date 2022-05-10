@@ -21,7 +21,7 @@
         <div style="flex: 1"></div>
         <div style="width: 170px; display: flex">
           <el-button
-            v-if="!inLogin"
+            v-if="inLogin"
             type="text"
             style="color: #ffffff"
             class="top-title"
@@ -29,20 +29,28 @@
             >登录</el-button
           >
           <el-button
-            v-if="!inLogin"
+            v-if="inLogin"
             type="text"
             style="color: #ffffff; margin-right: 10px"
             class="top-title"
             @click="toRegister"
             >注册</el-button
           >
-          <el-button
-            v-if="inLogin"
-            type="text"
-            style="color: #ffffff; margin-right: 10px"
-            class="top-title"
-            >xxx用户，你好！@</el-button
-          >
+          <div style="margin-right: 10px">
+            <el-dropdown>
+              <span class="el-dropdown-link" style="font-size: 15px">
+                xxx,你好<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <router-link :to="{ name: 'SysUserCenter' }">
+                    个人中心
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
 
           <div
             style="
@@ -118,6 +126,31 @@ export default {
     },
     toRegister() {
       this.$router.push("/register");
+    },
+    logout() {
+      this.$axios
+        .get("/user/logout")
+        .then((res) => {
+          this.clearMethod();
+          this.$store.commit("resetState"); //调用store里面的方法来清空token
+          this.$message({
+            message: res.data.msg,
+            type: "success",
+          });
+          setTimeout(() => {
+            //需要延迟的代码 :1秒后延迟跳转到首页，可以加提示什么的
+            this.$router.push("/");
+            //延迟时间：1秒
+          }, 1000);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    //清除localStorage中的token 和userName
+    clearMethod() {
+      localStorage.clear();
+      sessionStorage.clear();
     },
   },
 };
