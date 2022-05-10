@@ -93,7 +93,6 @@ export default {
               // const jwt = res.headers["authorization"];
               const jwt = res.data.data.token;
               this.$store.commit("SET_TOKEN", jwt);
-              this.$store.commit("SAVE_USERNAME", this.loginForm.username);
               this.$message({
                 message: "登录成功，即将跳转登录！",
                 type: "success",

@@ -6,7 +6,11 @@
           <div slot="header" class="clearfix">
             <span style="font-size: 20px">商品分类</span>
           </div>
-          <div v-for="item in calssifications" :key="item" class="text item">
+          <div
+            v-for="(item, index) in calssifications"
+            :key="index"
+            class="text item"
+          >
             <i :class="item.icon"></i>
             <a href="#" style="text-decoration: none; color: darkgrey">{{
               item.title
@@ -16,7 +20,7 @@
       </el-aside>
       <el-main
         ><el-carousel indicator-position="outside" style="border-radius: 30px">
-          <el-carousel-item v-for="item in imagesbox" :key="item">
+          <el-carousel-item v-for="(item, index) in imagesbox" :key="index">
             <img :src="item.idView" class="image" />
           </el-carousel-item> </el-carousel
       ></el-main>
@@ -27,7 +31,7 @@
               <el-avatar icon="el-icon-user-solid"></el-avatar>
             </div>
           </div>
-          <el-button type="text" @click="toLogin">请登录</el-button>
+          <el-button type="text" @click="test">请登录</el-button>
         </div>
         <div v-show="isLogin">
           <div class="demo-type">
@@ -44,9 +48,9 @@
           <div slot="header" class="clearfix">
             <span>公告板</span>
           </div>
-          <div v-for="o in 4" :key="o" class="board_item">
+          <div v-for="(item, index) in notice" :key="index" class="board_item">
             <a href="#" style="text-decoration: none; color: darkgrey">{{
-              "今日公告"
+              item.message
             }}</a>
           </div>
         </el-card>
@@ -86,6 +90,12 @@ export default {
   data() {
     return {
       isLogin: false,
+      notice: [
+        { message: "hahaha" },
+        { message: "hahaha" },
+        { message: "hahaha" },
+        { message: "hahaha" },
+      ],
       imagesbox: [
         { id: 0, idView: require("../assets/advertise1.png") },
         { id: 1, idView: require("../assets/advertise2.jpg") },
@@ -154,6 +164,19 @@ export default {
     },
     toLogin() {
       this.$router.push("/login");
+    },
+    test() {
+      this.$axios
+        .get("/hello")
+        .then((res) => {
+          this.$message({
+            message: res.data.msg,
+            type: "success",
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
   mounted() {},
