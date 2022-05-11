@@ -54,7 +54,7 @@
         color: #ffffff;
       "
     >
-      本网站仅供娱乐专用--Kamisora
+      本网站仅供娱乐专用--Kamisora-wyf
     </div>
   </div>
 </template>

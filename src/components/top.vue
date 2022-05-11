@@ -21,29 +21,29 @@
         <div style="flex: 1"></div>
         <div style="width: 170px; display: flex">
           <el-button
-            v-if="inLogin"
+            v-if="!isLogin"
             type="text"
             style="color: #ffffff"
             class="top-title"
             @click="toLogin"
-            >登录</el-button
-          >
+            >登录
+          </el-button>
           <el-button
-            v-if="inLogin"
+            v-if="!isLogin"
             type="text"
             style="color: #ffffff; margin-right: 10px"
             class="top-title"
             @click="toRegister"
             >注册</el-button
           >
-          <div style="margin-right: 10px">
+          <div style="margin-right: 10px" v-if="isLogin">
             <el-dropdown>
               <span class="el-dropdown-link" style="font-size: 15px">
                 xxx,你好<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
-                  <router-link :to="{ name: 'SysUserCenter' }">
+                  <router-link :to="{ name: 'homePage' }">
                     个人中心
                   </router-link>
                 </el-dropdown-item>
@@ -108,7 +108,7 @@ export default {
   data() {
     return {
       input: "",
-      inLogin: false,
+      isLogin: false,
     };
   },
   mounted() {},
@@ -154,7 +154,7 @@ export default {
     },
   },
 };
-</script >
+</script>
 
 <style scoped>
 .top-title:hover {

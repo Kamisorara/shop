@@ -1,27 +1,32 @@
 <template>
   <div id="details">
     <el-container>
-      <el-aside width="400px"
-        ><el-image
+      <el-aside width="400px">
+        <el-image
           :src="require('../assets/photo1.png')"
           style="height: 500px; width: 400px; margin-top: 100px"
-        ></el-image>
+        >
+        </el-image>
         <el-image
           :src="require('../assets/photo1.png')"
           style="height: 80px; width: 80px; margin-right: 20px"
-        ></el-image>
+        >
+        </el-image>
         <el-image
           :src="require('../assets/photo1.png')"
           style="height: 80px; width: 80px; margin-right: 20px"
-        ></el-image>
+        >
+        </el-image>
         <el-image
           :src="require('../assets/photo1.png')"
           style="height: 80px; width: 80px; margin-right: 20px"
-        ></el-image>
+        >
+        </el-image>
         <el-image
           :src="require('../assets/photo1.png')"
           style="height: 80px; width: 80px; margin-right: 20px"
-        ></el-image>
+        >
+        </el-image>
       </el-aside>
       <el-container>
         <el-main>
@@ -34,7 +39,7 @@
           <div id="price">
             <el-tag>价格:</el-tag>
             <span style="font-size: 30px; margin-left: 40px; color: red">
-              ¥1000</span
+              ¥{{ shop_id }}</span
             >
           </div>
           <div id="discounts">
@@ -54,7 +59,8 @@
                 :min="1"
                 :max="10"
                 label="描述文字"
-              ></el-input-number
+              >
+              </el-input-number
               >件
             </div>
           </div>
@@ -75,11 +81,12 @@
   </div>
 </template>
 
-<script >
+<script>
 export default {
-  name: "details",
+  name: "detail",
   data() {
     return {
+      shop_id: "",
       num: 1,
     };
   },
@@ -87,6 +94,12 @@ export default {
     handleChange(value) {
       console.log(value);
     },
+    getShop_id() {
+      this.shop_id = this.$route.query.id;
+    },
+  },
+  mounted() {
+    this.getShop_id();
   },
 };
 </script>
@@ -95,11 +108,13 @@ export default {
   width: 1200px;
   margin: 0px auto;
 }
+
 .el-header,
 .el-footer {
   text-align: center;
   line-height: 60px;
 }
+
 .el-aside {
   color: rgb(104, 100, 100);
   line-height: 100px;
@@ -118,12 +133,15 @@ export default {
   background-color: #fff2e8;
   line-height: 120px;
 }
+
 #delivery {
   background-color: #fff2e8;
 }
+
 #number {
   margin-top: 60px;
 }
+
 #pay {
   margin-top: 120px;
 }
