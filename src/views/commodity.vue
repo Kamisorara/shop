@@ -37,7 +37,7 @@
 							</el-avatar>
 						</div>
 					</div>
-					<p style="font-size: 20px">Hi,XXX</p>
+					<p style="font-size: 20px">Hi,{{ userName }}</p>
 				</div>
 
 				<el-card class="box-card">
@@ -80,8 +80,10 @@
 		data() {
 			return {
 				isLogin: false,
+				userName: "",
+				userId: "",
 				noticed: [{
-					notice: "请登录后查看",
+					notice: "等待网络链接中。。。",
 				}, ],
 				imagesbox: [{
 						id: 0,
@@ -113,31 +115,10 @@
 					mark: 9999,
 				}, ],
 				calssifications: [{
-						id: "123123",
-						icon: "el-icon-shopping-cart-full",
-						classificationName: "xxxx",
-					},
-					{
-						id: "123123",
-						icon: "el-icon-shopping-cart-full",
-						classificationName: "xxxx",
-					},
-					{
-						id: "123123",
-						icon: "el-icon-shopping-cart-full",
-						classificationName: "xxxx",
-					},
-					{
-						id: "123123",
-						icon: "el-icon-shopping-cart-full",
-						classificationName: "xxxx",
-					},
-					{
-						id: "123123",
-						icon: "el-icon-shopping-cart-full",
-						classificationName: "xxxx",
-					},
-				],
+					id: "123123",
+					icon: "el-icon-shopping-cart-full",
+					classificationName: "xxxx",
+				}, ],
 			};
 		},
 		methods: {
@@ -185,12 +166,31 @@
 					.catch((err) => {
 						console.error(err);
 					});
-			}
+			},
+			//获取用户信息（登录并且有token条件下）
+			getUserInfo() {
+				if (localStorage.getItem("token") != null) {
+					this.$axios
+						.get("/user/user-info")
+						.then((res) => {
+							console.log(res);
+							if (res.data.code === 200) {
+								this.isLogin = true;
+								this.userName = res.data.data[1];
+								this.userId = res.data.data[0];
+							}
+						})
+						.catch((err) => {
+							console.error(err);
+						});
+				}
+			},
 		},
 		mounted() {
 			this.getAllRecommended();
 			this.getClassification();
 			this.getAllNotice();
+			this.getUserInfo();
 		},
 	};
 </script>

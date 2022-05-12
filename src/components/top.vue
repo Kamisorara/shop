@@ -22,7 +22,7 @@
 					<div style="margin-right: 10px" v-if="isLogin">
 						<el-dropdown>
 							<span class="el-dropdown-link" style="font-size: 15px">
-								xxx,你好<i class="el-icon-arrow-down el-icon--right"></i>
+								{{ userName }},你好<i class="el-icon-arrow-down el-icon--right"></i>
 							</span>
 							<el-dropdown-menu slot="dropdown">
 								<el-dropdown-item>
@@ -77,10 +77,28 @@
 			return {
 				input: "",
 				isLogin: false,
+				username: "",
+				userId: ""
 			};
 		},
-		mounted() {},
 		methods: {
+			getUserInfo() {
+				if (localStorage.getItem("token") != null) {
+					this.$axios
+						.get("/user/user-info")
+						.then((res) => {
+							console.log(res);
+							if (res.data.code === 200) {
+								this.isLogin = true;
+								this.userName = res.data.data[1];
+								this.userId = res.data.data[0];
+							}
+						})
+						.catch((err) => {
+							console.error(err);
+						});
+				}
+			},
 			homePage() {
 				this.$router.push({
 					path: "/home/index",
@@ -107,7 +125,7 @@
 						});
 						setTimeout(() => {
 							//需要延迟的代码 :1秒后延迟跳转到首页，可以加提示什么的
-							this.$router.push("/");
+							this.$router.go(0); //刷新页面
 							//延迟时间：1秒
 						}, 1000);
 					})
@@ -120,6 +138,9 @@
 				localStorage.clear();
 				sessionStorage.clear();
 			},
+		},
+		mounted() {
+			this.getUserInfo();
 		},
 	};
 </script>
