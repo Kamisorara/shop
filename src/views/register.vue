@@ -19,7 +19,7 @@
 					<el-form-item label="验证码" prop="verify-code">
 						<el-input v-model="registerForm.verify" style="width: 300px"></el-input>
 					</el-form-item>
-					<el-button type="text" @click="submitEmail('registerForm')">发送验证码</el-button>
+					<el-button v-if="!isSend" type="text" @click="submitEmail('registerForm')">发送验证码</el-button>
 					<el-form-item>
 						<el-button type="primary" @click="submitForm('registerForm')">注册</el-button>
 					</el-form-item>
@@ -55,6 +55,7 @@
 				}
 			};
 			return {
+				isSend: false,
 				registerForm: {},
 				rules: {
 					username: [{
@@ -123,6 +124,7 @@
 						this.$axios
 							.post("/user/verify-code?" + "email=" + this.registerForm.email)
 							.then((res) => {
+								this.isSend = true;
 								this.$message({
 									message: "邮件发送成功！",
 									type: "success",

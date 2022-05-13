@@ -82,6 +82,7 @@
 				isLogin: false,
 				userName: "",
 				userId: "",
+				fullscreenLoading: false,
 				noticed: [{
 					notice: "等待网络链接中。。。",
 				}, ],
@@ -123,12 +124,23 @@
 		},
 		methods: {
 			toDetail(shop_id) {
-				this.$router.push({
-					path: "/details",
-					query: {
-						id: shop_id
-					},
-				});
+				if (this.isLogin) {
+					this.openFullScreen();
+					this.$router.push({
+						path: "/details",
+						query: {
+							id: shop_id
+						},
+					});
+				} else {
+					this.$message({
+						message: "登陆后再试！",
+						type: "error",
+					});
+					setTimeout(() => {
+						this.$router.push("/login");
+					}, 1000);
+				}
 			},
 			toLogin() {
 				this.$router.push("/login");
@@ -155,7 +167,6 @@
 						console.error(err);
 					});
 			},
-
 			getAllNotice() {
 				this.$axios
 					.get("/shop/index/notice-board")
@@ -184,6 +195,18 @@
 							console.error(err);
 						});
 				}
+			},
+			//全屏加载画面
+			openFullScreen() {
+				const loading = this.$loading({
+					lock: true,
+					text: '加载中，请耐心等待！',
+					spinner: 'el-icon-loading',
+					background: 'rgba(0, 0, 0, 0.7)'
+				});
+				setTimeout(() => {
+					loading.close();
+				}, 500);
 			},
 		},
 		mounted() {

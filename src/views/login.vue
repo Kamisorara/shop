@@ -88,11 +88,12 @@
 									message: "登录成功，即将跳转登录！",
 									type: "success",
 								});
-								setTimeout(() => {
-									//需要延迟的代码 :1秒后延迟跳转到首页，可以加提示什么的
-									this.$router.push("/");
-									//延迟时间：1秒
-								}, 1000);
+								// setTimeout(() => {
+								// 	//需要延迟的代码 :1秒后延迟跳转到首页，可以加提示什么的
+								// 	this.$router.push("/");
+								// 	//延迟时间：1秒
+								// }, 1000);
+								this.openFullScreen();
 							})
 							.catch((err) => {
 								console.error(err);
@@ -127,6 +128,19 @@
 					}, 1000);
 				}
 			},
+			//全屏加载画面
+			openFullScreen() {
+				const loading = this.$loading({
+					lock: true,
+					text: '加载中，请耐心等待！',
+					spinner: 'el-icon-loading',
+					background: 'rgba(0, 0, 0, 0.7)'
+				});
+				setTimeout(() => {
+					loading.close();
+					this.$router.push("/");
+				}, 1000);
+			}
 		},
 		mounted() {
 			this.userLogin();

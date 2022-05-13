@@ -96,6 +96,12 @@
 						})
 						.catch((err) => {
 							console.error(err);
+							this.$message({
+								message: "请重新登录",
+								type: "error",
+							})
+							this.clearMethod();
+							this.$router.go(0);
 						});
 				}
 			},
@@ -123,11 +129,7 @@
 							message: res.data.msg,
 							type: "success",
 						});
-						setTimeout(() => {
-							//需要延迟的代码 :1秒后延迟跳转到首页，可以加提示什么的
-							this.$router.go(0); //刷新页面
-							//延迟时间：1秒
-						}, 1000);
+						this.openFullScreen();
 					})
 					.catch((err) => {
 						console.error(err);
@@ -137,6 +139,19 @@
 			clearMethod() {
 				localStorage.clear();
 				sessionStorage.clear();
+			},
+			//全屏加载画面
+			openFullScreen() {
+				const loading = this.$loading({
+					lock: true,
+					text: '加载中，请耐心等待！',
+					spinner: 'el-icon-loading',
+					background: 'rgba(0, 0, 0, 0.7)'
+				});
+				setTimeout(() => {
+					this.$router.go(0); //刷新页面
+					loading.close();
+				}, 500);
 			},
 		},
 		mounted() {

@@ -3,7 +3,7 @@ import axios from "axios";
 import Element from 'element-ui' //需要进行弹窗
 import router from './router' //肯定需要重定向
 
-axios.defaults.baseURL = "http://127.0.0.1:8080" //定义全局端口
+axios.defaults.baseURL = "http://192.168.31.174:8080" //定义全局端口
 
 //创建axios对象
 const request = axios.create({
