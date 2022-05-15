@@ -41,20 +41,15 @@
               width: 100px;
               padding: 0 10px;
             " class="top-title">
-						<img src="../assets/img2.png" style="
-                width: 20px;
-                height: 20px;
-                margin-top: 10px;
-                margin-right: 5px;
-              " />
-						<el-button type="text" style="color: #ffffff" class="top-title">购物车</el-button>
+						<el-button type="text" style="color: #ffffff" class="top-title"><i
+								class="el-icon-shopping-cart-1"></i>购物车</el-button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div style="margin: 0 200px; height: 80px; line-height: 80px">
 			<div style="display: flex">
-				<img src="../assets/logo.png" style="cursor: pointer; height: 60px; margin-top: 10px" />
+				<img src="../assets/img1.png" style="cursor: pointer; height: 60px; margin-top: 10px" />
 				<div class="title" style="margin-left: 30px" @click="toIndex">首页</div>
 				<div class="title">电子产品</div>
 				<div class="title">家具家电</div>
@@ -69,7 +64,7 @@
 			</div>
 		</div>
 	</div>
-</template>ge
+</template>
 
 <script>
 	export default {
