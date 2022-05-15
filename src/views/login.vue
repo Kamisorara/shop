@@ -147,7 +147,7 @@
 		},
 	};
 </script>
-<style>
+<style scoped>
 	.el-row {
 		background-color: #fafafa;
 		height: 100vh;

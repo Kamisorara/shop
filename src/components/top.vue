@@ -25,16 +25,13 @@
 								{{ userName }},你好<i class="el-icon-arrow-down el-icon--right"></i>
 							</span>
 							<el-dropdown-menu slot="dropdown">
-								<el-dropdown-item>
-									<router-link :to="{ name: 'homePage' }">
-										个人中心
-									</router-link>
+								<el-dropdown-item @click.native="toUserDetail()">
+									个人中心
 								</el-dropdown-item>
 								<el-dropdown-item @click.native="logout">退出</el-dropdown-item>
 							</el-dropdown-menu>
 						</el-dropdown>
 					</div>
-
 					<div style="
               background-color: rgb(223 221 221 / 40%);
               display: flex;
@@ -105,14 +102,26 @@
 					path: "/home/index",
 				});
 			},
+			//回到主页面
 			toIndex() {
-				this.$router.push("/commodity");
+				this.openFullScreen();
+				this.$router.push("/");
 			},
+
+			//登录界面
 			toLogin() {
 				this.$router.push("/login");
 			},
+			//注册界面
 			toRegister() {
 				this.$router.push("/register");
+			},
+			//用户详情界面
+			toUserDetail() {
+				if (localStorage.getItem("token") != null) {
+					this.openFullScreen();
+					this.$router.push("/user-detail");
+				}
 			},
 			logout() {
 				this.$axios

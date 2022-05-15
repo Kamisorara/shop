@@ -65,7 +65,7 @@
 						<div id="seller" class="seller-display">
 							<div class="seller-display" id="seller-b1">
 								<p>描述:</p>
-								<p class="seller-mark">{{ seller.sellerMarl1 }}</p>
+								<p class="seller-mark">{{ seller.sellerMark1 }}</p>
 							</div>
 
 							<div class="seller-display">
@@ -78,7 +78,6 @@
 							</div>
 						</div>
 					</div>
-
 				</el-aside>
 				<el-main>
 					<el-tabs v-model="activeName" type="card">
@@ -215,7 +214,7 @@
 			},
 			//根据id获取商品详细信息
 			getSellerDetail() {
-				this.$axios.post("/shop/index/seller?id=" + this.commodityDetail.sellerId)
+				this.$axios.post("/shop/index/seller?id=" + this.shop_id)
 					.then(res => {
 						console.log(res);
 						this.seller = res.data.data;
