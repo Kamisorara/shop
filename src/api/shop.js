@@ -29,4 +29,3 @@ export function getSellerDetails(id) {
 	return axios
 		.post("/shop/index/seller?id=" + id);
 }
-
