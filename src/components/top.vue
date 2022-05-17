@@ -64,6 +64,11 @@
 </template>
 
 <script>
+	import {
+		login,
+		getUser,
+		logout
+	} from "@/api/user";
 	export default {
 		data() {
 			return {
@@ -76,8 +81,7 @@
 		methods: {
 			getUserInfo() {
 				if (localStorage.getItem("token") != null) {
-					this.$axios
-						.get("/user/user-info")
+					getUser()
 						.then((res) => {
 							console.log(res);
 							if (res.data.code === 200) {
@@ -124,8 +128,7 @@
 				}
 			},
 			logout() {
-				this.$axios
-					.get("/user/logout")
+				logout()
 					.then((res) => {
 						this.clearMethod();
 						this.$store.commit("resetState"); //调用store里面的方法来清空token

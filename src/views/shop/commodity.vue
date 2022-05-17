@@ -75,6 +75,14 @@
 </template>
 
 <script>
+	import {
+		getUser,
+	} from "@/api/user";
+	import {
+		getRecommended,
+		getAllClassification,
+		getNotice
+	} from "@/api/shop";
 	export default {
 		name: "commodity",
 		data() {
@@ -88,23 +96,23 @@
 				}, ],
 				imagesbox: [{
 						id: 0,
-						idView: require("../assets/advertise1.png"),
+						idView: require("@/assets/advertise1.png"),
 					},
 					{
 						id: 1,
-						idView: require("../assets/advertise2.jpg"),
+						idView: require("@/assets/advertise2.jpg"),
 					},
 					{
 						id: 2,
-						idView: require("../assets/advertise3.jpg"),
+						idView: require("@/assets/advertise3.jpg"),
 					},
 					{
 						id: 3,
-						idView: require("../assets/advertise4.jpg"),
+						idView: require("@/assets/advertise4.jpg"),
 					},
 					{
 						id: 4,
-						idView: require("../assets/advertise5.jpg"),
+						idView: require("@/assets/advertise5.jpg"),
 					},
 				],
 				products: [{
@@ -146,8 +154,7 @@
 				this.$router.push("/login");
 			},
 			getAllRecommended() {
-				this.$axios
-					.get("/shop/index/default-recommended")
+				getRecommended()
 					.then((res) => {
 						console.log(res);
 						this.products = res.data.data;
@@ -157,8 +164,7 @@
 					});
 			},
 			getClassification() {
-				this.$axios
-					.get("/shop/index/classification")
+				getAllClassification()
 					.then((res) => {
 						console.log(res);
 						this.calssifications = res.data.data;
@@ -168,8 +174,7 @@
 					});
 			},
 			getAllNotice() {
-				this.$axios
-					.get("/shop/index/notice-board")
+				getNotice()
 					.then((res) => {
 						console.log(res);
 						this.noticed = res.data.data;
@@ -181,8 +186,7 @@
 			//获取用户信息（登录并且有token条件下）
 			getUserInfo() {
 				if (localStorage.getItem("token") != null) {
-					this.$axios
-						.get("/user/user-info")
+					getUser()
 						.then((res) => {
 							console.log(res);
 							if (res.data.code === 200) {

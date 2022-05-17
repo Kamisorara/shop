@@ -12,17 +12,17 @@ const routes = [{
 		children: [{
 				path: '/commodity',
 				name: "commodity",
-				component: () => import("../views/commodity.vue"),
+				component: () => import("../views/shop/commodity.vue"),
 			},
 			{
 				path: '/details',
 				name: "details",
-				component: () => import("../views/details.vue")
+				component: () => import("../views/shop/details.vue")
 			},
 			{
 				path: '/user-detail',
 				name: "userDetail",
-				component: () => import("../views/userDetail.vue")
+				component: () => import("../views/user/userDetail.vue")
 			}
 		],
 	},

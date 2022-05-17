@@ -1,0 +1,328 @@
+<template>
+	<div class="main" style="height: 70vh;">
+		<el-tabs v-model="activeName" style="margin-top: 30px;margin-left: 150px;margin-right: 150px;">
+			<el-tab-pane label="用户管理" name="first">
+				<el-row :gutter="20" style="margin-top:10px;">
+					<el-col :span="8">
+						<div class="grid-content bg-purple">
+							<el-card class="box-card">
+								<div slot="header" class="clearfix">
+									<span>个人中心</span>
+								</div>
+								<div class="name-role">
+									<span class="sender">用户 - {{dataForm.userName}}</span>
+								</div>
+								<div class="registe-info">
+									<span class="registe-info">
+										注册时间：
+										<i class="el-icon-time"></i>
+										{{dataForm.createTime}}
+									</span>
+								</div>
+								<el-divider></el-divider>
+								<div class="personal-relation">
+									<div class="relation-item">用户id: <div style="float: right; padding-right:20px;">
+											{{dataForm.id}}
+										</div>
+									</div>
+								</div>
+								<div class="personal-relation">
+									<div class="relation-item">昵称: <div style="float: right; padding-right:20px;">
+											{{dataForm.nickName}}
+										</div>
+									</div>
+								</div>
+								<div class="personal-relation">
+									<div class="relation-item">手机号: <div style="float: right; padding-right:20px;">
+											{{dataForm.phonenumber}}
+										</div>
+									</div>
+								</div>
+								<div class="personal-relation">
+									<div class="relation-item">邮箱: <div style="float: right; padding-right:20px;">
+											{{dataForm.email}}
+										</div>
+									</div>
+								</div>
+								<div class="personal-relation">
+									<div class="relation-item">性别: <div style="float: right; padding-right:20px;">
+											{{dataForm.sex}}
+										</div>
+									</div>
+								</div>
+							</el-card>
+						</div>
+					</el-col>
+					<el-col :span="16">
+						<div class="grid-content bg-purple">
+							<el-card class="box-card">
+								<div slot="header" class="clearfix">
+									<span>基本资料修改</span>
+								</div>
+								<div>
+									<el-form label-width="80px" v-model="dataFrom" size="small" label-position="right">
+										<el-form-item label="用户昵称" prop="nickName">
+											<el-input auto-complete="off" v-model="dataForm.nickName"
+												:disabled="isInput"></el-input>
+										</el-form-item>
+										<el-form-item label="手机号" prop="phonenumber">
+											<el-input auto-complete="off" v-model="dataForm.phonenumber"
+												:disabled="isInput"></el-input>
+										</el-form-item>
+										<el-form-item label="邮箱" prop="email">
+											<el-input maxlength="30" v-model="dataForm.email" :disabled="isInput">
+											</el-input>
+										</el-form-item>
+										<el-form-item label="地址" prop="Addr">
+											<el-input maxlength="30" v-model="dataForm.Addr" :disabled="isInput">
+											</el-input>
+										</el-form-item>
+										<el-radio-group v-model="dataForm.sex" :disabled="isInput">
+											<el-radio label="男"></el-radio>
+											<el-radio label="女"></el-radio>
+										</el-radio-group>
+									</el-form>
+									<div slot="footer" class="dialog-footer" v-if="!isInput">
+										<el-button size="mini" type="primary" @click="endInput()">提交修改</el-button>
+										<el-button size="mini" type="warning">暂时还不知道有啥用的按钮</el-button>
+									</div>
+									<div slot="footer" class="dialog-footer" v-if="isInput">
+										<el-button type="primary" plain @click="startInput()">启用编辑</el-button>
+									</div>
+								</div>
+							</el-card>
+							<el-col :span="20" style="margin-top: 30px;">
+								<el-card shadow="always">
+									地址：{{dataForm.Addr}}
+								</el-card>
+							</el-col>
+						</div>
+					</el-col>
+
+
+				</el-row>
+			</el-tab-pane>
+			<el-tab-pane label="账号管理" name="second">
+				<el-col :span="16">
+					<div class="grid-content bg-purple">
+						<el-card class="box-card">
+							<div slot="header" class="clearfix">
+								<span>修改密码请谨慎(Doge)</span>
+							</div>
+							<div>
+								<el-form :model="resetForm" :rules="rules" ref="resetForm" label-width="170px"
+									class="demo-resetForm">
+									<el-form-item label="旧密码" prop="oldPassword">
+										<el-input v-model="resetForm.oldPassword" style="width: 300px" type="password"
+											auto-complete="off"></el-input>
+									</el-form-item>
+									<el-form-item label="新密码" prop="password">
+										<el-input v-model="resetForm.password" style="width: 300px" type="password"
+											auto-complete="off"></el-input>
+									</el-form-item>
+									<el-form-item label="再输入一次" prop="password2">
+										<el-input v-model="resetForm.password2" style="width: 300px" type="password"
+											auto-complete="off"></el-input>
+									</el-form-item>
+
+									<el-form-item>
+										<el-button type="primary" @click="submitForm('resetForm')">修改密码</el-button>
+									</el-form-item>
+								</el-form>
+							</div>
+						</el-card>
+					</div>
+				</el-col>
+			</el-tab-pane>
+		</el-tabs>
+	</div>
+
+</template>
+
+<script>
+	export default {
+		name: "userDetail",
+		data() {
+			//校验规则
+			var ValidatePass = (rule, value, callback) => {
+				if (value == "") {
+					callback(new Error("请再输入一次密码"));
+				} else if (value != this.resetForm.password) {
+					callback(new Error("两次输入密码不一致"));
+				} else {
+					callback();
+				}
+			};
+			return {
+				//禁用表单编辑
+				isInput: true,
+				activeName: 'first',
+				dataForm: {
+					id: 1524761813231648769,
+					userName: 'Kamisora',
+					nickName: "卡卡",
+					email: "1210281722@qq.com",
+					phonenumber: '15906877873',
+					sex: "男",
+					createTime: "2020-04-10 09:40:33",
+					Addr: "浙江省温州市永嘉县三江街道三江立体城盛景园7-3902"
+				},
+				resetForm: {
+					oldPassword: "",
+					password: "",
+					password2: "",
+					token: "",
+				},
+				rules: {
+					oldPassword: [{
+						required: true,
+						message: "请输入旧密码",
+						trigger: "blur"
+					}, ],
+					password: [{
+							required: true,
+							message: "请输入新密码",
+							trigger: "blur"
+						},
+						{
+							min: 6,
+							max: 20,
+							message: "长度在 6个字符以上",
+							trigger: "blur"
+						},
+					],
+					password2: [{
+						required: true,
+						validator: ValidatePass,
+						trigger: "blur"
+					}, ],
+				},
+			}
+		},
+		methods: {
+			startInput() {
+				this.isInput = false;
+			},
+			endInput() {
+				this.isInput = true;
+			},
+			submitForm(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						this.submit.userName = this.loginStatus.username;
+						this.submit.password = this.resetForm.password;
+						this.$axios
+							.post("/system/resetPassword?" + this.$qs.stringify(this.submit))
+							.then((res) => {
+								this.$message({
+									message: "修改成功！",
+									type: "success",
+								});
+							})
+							.catch((err) => {
+								console.error(err);
+								console.error("发生未知错误！");
+								this.$message.error("修改失败！");
+							});
+					} else {
+						console.log("error submit!!");
+						return false;
+					}
+				});
+			},
+		},
+	}
+</script>
+
+<style scoped>
+	/* //卡片样式 */
+	.text {
+		font-size: 14px;
+	}
+
+	.item {
+		margin-bottom: 18px;
+	}
+
+	.clearfix:before,
+	.clearfix:after {
+		display: table;
+		content: "";
+	}
+
+	.clearfix:after {
+		clear: both
+	}
+
+	.box-card {
+		width: 100%;
+	}
+
+	/* //文本样式区 */
+	.name-role {
+		font-size: 16px;
+		padding: 5px;
+		text-align: center;
+	}
+
+	.sender {
+		text-align: center;
+	}
+
+	.registe-info {
+		text-align: center;
+		padding-top: 10px;
+	}
+
+	.personal-relation {
+		font-size: 16px;
+		padding: 0px 5px 15px;
+		margin-right: 1px;
+		width: 100%
+	}
+
+	.relation-item {
+		padding: 12px;
+
+	}
+
+	.dialog-footer {
+		padding-top: 10px;
+		padding-left: 10%;
+	}
+
+	/* //布局样式区 */
+	.el-row {
+		margin-bottom: 20px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.el-col {
+		border-radius: 4px;
+	}
+
+	.bg-purple-dark {
+		background: #99a9bf;
+	}
+
+	.bg-purple {
+		background: #d3dce6;
+	}
+
+	.bg-purple-light {
+		background: #e5e9f2;
+	}
+
+	.grid-content {
+		border-radius: 4px;
+		min-height: 36px;
+	}
+
+	.row-bg {
+		padding: 10px 0;
+		background-color: #f9fafc;
+	}
+</style>

@@ -128,6 +128,10 @@
 </template>
 
 <script>
+	import {
+		getCommodityDetails,
+		getSellerDetails
+	} from '@/api/shop';
 	export default {
 		name: "detail",
 		data() {
@@ -203,7 +207,7 @@
 			},
 			//根据id获取商品详细信息
 			getCommodityDetail() {
-				this.$axios.post("/shop/index/commodities?id=" + this.shop_id)
+				getCommodityDetails(this.shop_id)
 					.then(res => {
 						console.log(res);
 						this.commodityDetail = res.data.data;
@@ -212,9 +216,9 @@
 						console.error(err);
 					});
 			},
-			//根据id获取商品详细信息
+			//根据id获取店家信息
 			getSellerDetail() {
-				this.$axios.post("/shop/index/seller?id=" + this.shop_id)
+				getSellerDetails(this.shop_id)
 					.then(res => {
 						console.log(res);
 						this.seller = res.data.data;

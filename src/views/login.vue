@@ -38,6 +38,9 @@
 </template>
 
 <script>
+	import {
+		login
+	} from "@/api/user";
 	export default {
 		name: "login",
 		data() {
@@ -77,8 +80,7 @@
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
 						this.clearMethod();
-						this.$axios
-							.post("/user/login?" + this.$qs.stringify(this.loginForm))
+						login(this.loginForm)
 							.then((res) => {
 								//访问成功之后获取jwt
 								// const jwt = res.headers["authorization"];

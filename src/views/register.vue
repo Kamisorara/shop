@@ -31,6 +31,10 @@
 </template>
 
 <script>
+	import {
+		register,
+		sendEmail
+	} from "@/api/user";
 	export default {
 		name: "Register",
 		data() {
@@ -95,8 +99,7 @@
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						this.$axios
-							.post("/user/register?" + this.$qs.stringify(this.registerForm))
+						register(this.registerForm)
 							.then((res) => {
 								this.$message({
 									message: "注册成功，即将跳转登录！",
@@ -121,8 +124,7 @@
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
 						this.$message("邮件请求已发出，请耐心等待");
-						this.$axios
-							.post("/user/verify-code?" + "email=" + this.registerForm.email)
+						sendEmail(this.registerForm.email)
 							.then((res) => {
 								this.isSend = true;
 								this.$message({
