@@ -24,7 +24,7 @@
 								<i class="el-icon-arrow-down el-icon--right"></i>
 							</span>
 							<el-dropdown-menu slot="dropdown">
-								<el-dropdown-item @click.native="toUserDetail()">个人中心</el-dropdown-item>
+								<el-dropdown-item @click.native="toPerson()">个人中心</el-dropdown-item>
 								<el-dropdown-item @click.native="logout">退出</el-dropdown-item>
 							</el-dropdown-menu>
 						</el-dropdown>
@@ -75,6 +75,7 @@ export default {
 		};
 	},
 	methods: {
+		//根据token获取用户信息
 		getUserInfo() {
 			if (localStorage.getItem('token') != null) {
 				getUser()
@@ -116,11 +117,24 @@ export default {
 		toRegister() {
 			this.$router.push('/register');
 		},
-		//用户详情界面
-		toUserDetail() {
-			if (localStorage.getItem('token') != null) {
+		//个人详情界面
+		toPerson() {
+			if (this.isLogin) {
 				this.openFullScreen();
-				this.$router.push('/user-detail');
+				this.$router.push({
+					path: '/user-detail',
+					query: {
+						id: this.userId
+					}
+				});
+			} else {
+				this.$message({
+					message: '登陆后再试！',
+					type: 'error'
+				});
+				setTimeout(() => {
+					this.$router.push('/login');
+				}, 1000);
 			}
 		},
 		logout() {

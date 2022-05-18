@@ -19,11 +19,25 @@ export function logout() {
 //注册
 export function regiser(data) {
 	return axios
-		.post("/user/register?" + this.qs.stringify(data))
+		.post("/user/register?" + qs.stringify(data))
 }
 
 //发送注册邮件
 export function sendEmail(data) {
 	return axios
 		.post("/user/verify-code?" + "email=" + data)
+}
+
+
+//根据id修改用户详细信息
+export function updateUserMessage(data) {
+	return axios
+		.post("/user/userDetail-post", data)
+}
+
+
+//根据id获取用户详细信息
+export function getUserDetailMessage(id) {
+	return axios
+		.post("/user/user-info-detail-get?userId=" + id)
 }
