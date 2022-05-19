@@ -6,7 +6,7 @@
 					<div slot="header" class="clearfix"><span style="font-size: 20px">商品分类</span></div>
 					<div v-for="(item, index) in calssifications" :key="index" class="text item">
 						<i :class="item.icon"></i>
-						<a href="#" style="text-decoration: none; color: darkgrey">{{ item.classificationName }}</a>
+						<a href="#" style="text-decoration: none; color: darkgrey" @click="toSearch(item.classificationName)">{{ item.classificationName }}</a>
 					</div>
 				</el-card>
 			</el-aside>
@@ -139,6 +139,13 @@ export default {
 		//登录界面
 		toLogin() {
 			this.$router.push('/login');
+		},
+		//搜索界面（分类界面）
+		toSearch(name) {
+			this.$router.push({
+				path: '/search',
+				query: { classifyName: name }
+			});
 		},
 		getAllRecommended() {
 			getRecommended()
