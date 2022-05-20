@@ -29,7 +29,7 @@
 				>
 					<div
 						style="
-              color: #ea9573;
+              color: #e0d8db;
               font-weight: bold;
               font-size: 18px;
               line-height: 40px;
@@ -45,11 +45,11 @@
 		</div>
 		<div
 			style="
-        background-color: #ea9573;
+        background-color: #e0d8db;
         height: 40px;
         text-align: center;
         line-height: 40px;
-        color: #ffffff;
+        color: #8c8c8c;
       "
 		>
 			本网站仅供娱乐专用--Kamisora-wyf
@@ -76,6 +76,6 @@
 
 .foot-item:hover {
 	cursor: pointer;
-	color: #e37a2f;
+	color: #e0d8db;
 }
 </style>

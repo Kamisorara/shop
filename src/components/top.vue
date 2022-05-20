@@ -5,18 +5,18 @@
         display: flex;
         height: 40px;
         padding: 0 200px;
-        background-color: #ea9573;
+        background-color: #e0d8db;
       "
 		>
-			<div class="top-title">会员中心</div>
-			<div class="top-title" style="margin-left: 20px">提交bug</div>
-			<div class="top-title" style="margin-left: 20px">充值</div>
-			<div class="top-title" style="line-height: 40px; color: #ffffff; margin-left: 20px">一键三连</div>
+			<div class="top-title" style="color: #8c8c8c;">会员中心</div>
+			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;">提交bug</div>
+			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;">充值</div>
+			<div class="top-title" style="line-height: 40px; color: #8c8c8c; margin-left: 20px">一键三连</div>
 			<div style="flex: 1; display: flex">
 				<div style="flex: 1"></div>
 				<div style="width: 170px; display: flex">
-					<el-button v-if="!isLogin" type="text" style="color: #ffffff" class="top-title" @click="toLogin">登录</el-button>
-					<el-button v-if="!isLogin" type="text" style="color: #ffffff; margin-right: 10px" class="top-title" @click="toRegister">注册</el-button>
+					<el-button v-if="!isLogin" type="text" style="color: #8c8c8c" class="top-title" @click="toLogin">登录</el-button>
+					<el-button v-if="!isLogin" type="text" style="color: #8c8c8c; margin-right: 10px" class="top-title" @click="toRegister">注册</el-button>
 					<div style="margin-right: 10px" v-if="isLogin">
 						<el-dropdown>
 							<span class="el-dropdown-link" style="font-size: 15px">
@@ -38,7 +38,7 @@
             "
 						class="top-title"
 					>
-						<el-button type="text" style="color: #ffffff" class="top-title">
+						<el-button type="text" style="color: #8c8c8c;" class="top-title">
 							<i class="el-icon-shopping-cart-1"></i>
 							购物车
 						</el-button>

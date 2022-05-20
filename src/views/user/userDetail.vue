@@ -71,10 +71,21 @@
 										</el-radio-group>
 									</el-form>
 									<div slot="footer" class="dialog-footer" v-if="!isInput">
-										<el-button size="mini" type="primary" @click="submitUpdate('dataForm')">提交修改</el-button>
-										<el-button size="mini" type="warning" @click="cancleInput()">取消编辑</el-button>
+										<el-button size="mini" type="primary" @click="submitUpdate('dataForm')">
+											<i class="el-icon-check"></i>
+											提交修改
+										</el-button>
+										<el-button size="mini" type="warning" @click="cancleInput()">
+											<i class="el-icon-error"></i>
+											取消编辑
+										</el-button>
 									</div>
-									<div slot="footer" class="dialog-footer" v-if="isInput"><el-button type="primary" plain @click="startInput()">启用编辑</el-button></div>
+									<div slot="footer" class="dialog-footer" v-if="isInput">
+										<el-button type="primary" plain @click="startInput()">
+											<i class="el-icon-edit"></i>
+											启用编辑
+										</el-button>
+									</div>
 								</div>
 							</el-card>
 							<el-col :span="20" style="margin-top: 30px;">
