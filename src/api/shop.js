@@ -4,7 +4,7 @@ import qs from 'qs'
 //推荐商品列表
 export function getRecommended() {
 	return axios
-		.get("/shop/index/default-recommended");
+		.get("/uni-shop/index/get-index-commodities");
 }
 //商品分类列表
 export function getAllClassification() {
@@ -28,4 +28,18 @@ export function getCommodityDetails(id) {
 export function getSellerDetails(id) {
 	return axios
 		.post("/shop/index/seller?id=" + id);
+}
+
+
+//获取轮播图图片
+export function getAllSwiperPicture() {
+	return axios
+		.get('/uni-shop/index/getSwiperPicture');
+}
+
+
+//根据type获取商品列表
+export function getCommodityByType(type) {
+	return axios
+		.get('/uniapp-detail/get-commodity-type' + '?type=' + type);
 }

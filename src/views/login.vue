@@ -5,15 +5,17 @@
 				<h1>欢迎来到wyf的商城</h1>
 
 				<el-image
-					:src="require('../assets/head.png')"
+					:src="require('../assets/KamisoraMallLogo.png')"
 					style="
             height: 180px;
-            width: 180px;
+            width: 500px;
             margin-top: 30px;
             margin-bottom: 30px;
           "
 				></el-image>
-				<p>本网站纯属娱乐</p>
+				<p>--感谢xwf小可爱设计的logo</p>
+				<span style="font-size: 20px;font-weight: 600;">o(*≧▽≦)ツ</span>
+				<p style="color: crimson;">本网页数据将与移动端同步</p>
 				<el-button type="text" @click="toIndex">返回商城首页</el-button>
 				<div class="grid-content bg-purple"></div>
 			</el-col>

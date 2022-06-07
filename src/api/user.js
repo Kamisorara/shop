@@ -17,7 +17,7 @@ export function logout() {
 }
 
 //注册
-export function regiser(data) {
+export function register(data) {
 	return axios
 		.post("/user/register?" + qs.stringify(data))
 }

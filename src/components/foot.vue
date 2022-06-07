@@ -76,6 +76,6 @@
 
 .foot-item:hover {
 	cursor: pointer;
-	color: #e0d8db;
+	color: #2a7fe8;
 }
 </style>

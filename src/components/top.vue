@@ -8,6 +8,7 @@
         background-color: #e0d8db;
       "
 		>
+			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;"><a href="http://mall.kamisora.xyz" style="text-decoration: none;color:darkorange;">移动端</a></div>
 			<div class="top-title" style="color: #8c8c8c;">会员中心</div>
 			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;">提交bug</div>
 			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;">充值</div>
@@ -20,7 +21,7 @@
 					<div style="margin-right: 10px" v-if="isLogin">
 						<el-dropdown>
 							<span class="el-dropdown-link" style="font-size: 15px">
-								{{ userName }},你好
+								{{ userName }}
 								<i class="el-icon-arrow-down el-icon--right"></i>
 							</span>
 							<el-dropdown-menu slot="dropdown">
@@ -33,12 +34,13 @@
 						style="
               background-color: rgb(223 221 221 / 40%);
               display: flex;
-              width: 100px;
+              width: 60px;
               padding: 0 10px;
+
             "
 						class="top-title"
 					>
-						<el-button type="text" style="color: #8c8c8c;" class="top-title">
+						<el-button type="text" style="color: #797979;" class="top-title">
 							<i class="el-icon-shopping-cart-1"></i>
 							购物车
 						</el-button>
@@ -46,16 +48,16 @@
 				</div>
 			</div>
 		</div>
-		<div style="margin: 0 200px; height: 80px; line-height: 80px">
+		<div style=" margin-left: 100px;height: 90px; line-height: 80px">
 			<div style="display: flex">
-				<img src="../assets/img1.png" style="cursor: pointer; height: 60px; margin-top: 10px" />
+				<img src="../assets/KamisoraMallLogo.png" style="cursor: pointer; height: 80px;" />
 				<div class="title" style="margin-left: 30px" @click="toIndex">首页</div>
 				<div class="title">电子产品</div>
 				<div class="title">家具家电</div>
 				<div class="title">母婴用品</div>
-				<div class="title">零食</div>
+				<div class="title">零食食品</div>
 				<div class="title">联系我们</div>
-				<div style="flex: 1; text-align: right">
+				<div style="flex: 1;margin-left: 200px;">
 					<el-input placeholder="请输入查找的商品" v-model="input" style="width: 500px"><el-button slot="append" icon="el-icon-search"></el-button></el-input>
 				</div>
 			</div>
@@ -180,7 +182,7 @@ export default {
 <style scoped>
 .top-title:hover {
 	cursor: pointer;
-	color: #e5e5e5 !important;
+	color: #030303 !important;
 }
 
 .title {
@@ -189,7 +191,7 @@ export default {
 }
 
 .title:hover {
-	color: #c250c6 !important;
+	color: #14e2e2 !important;
 }
 
 .top-title {
