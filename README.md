@@ -1,5 +1,6 @@
 # 基于vue的单页面商城项目
 
+#基于springboot后端地址:https://github.com/Kamisorara/mall_model
 ## Project setup
 ```
 npm install
