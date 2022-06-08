@@ -1,6 +1,9 @@
 # 基于vue的单页面商城项目
 
+
 #基于springboot后端地址:https://github.com/Kamisorara/mall_model
+
+#基于uniapp 移动端地址:https://github.com/Kamisorara/uniapp_shop
 ## Project setup
 ```
 npm install
