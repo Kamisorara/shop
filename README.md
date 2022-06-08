@@ -1,4 +1,4 @@
-# 基于vue的商城界面
+# 基于vue的单页面商城项目
 
 ## Project setup
 ```
