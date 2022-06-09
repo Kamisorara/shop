@@ -4,6 +4,8 @@
 #基于springboot后端地址:https://github.com/Kamisorara/mall_model
 
 #基于uniapp 移动端地址:https://github.com/Kamisorara/uniapp_shop
+
+#商城后台管理系统链接：https://github.com/Kamisorara/MallBackStage
 ## Project setup
 ```
 npm install
