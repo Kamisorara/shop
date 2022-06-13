@@ -8,6 +8,9 @@
 #商城后台管理系统链接：https://github.com/Kamisorara/MallBackStage
 ## Project setup
 ```
+npm install element-ui --save
+npm install qs --save
+npm install axios --save
 npm install
 ```
 
