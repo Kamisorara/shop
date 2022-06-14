@@ -8,6 +8,23 @@
 							<el-card class="box-card">
 								<div slot="header" class="clearfix"><span>个人中心</span></div>
 								<div class="name-role">
+									<div v-if="ifChangeHead">
+										<!-- 上传头像 -->
+										<el-upload
+											class="avatar-uploader"
+											action="http://localhost:8081/backStage/uploadFile"
+											:show-file-list="false"
+											:headers="headers"
+											:on-success="handleAvatarSuccess"
+											:before-upload="beforeAvatarUpload"
+										>
+											<img v-if="imageUrl" :src="imageUrl" class="avatar" />
+											<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+										</el-upload>
+									</div>
+									<!-- 头像 -->
+									<div @click="changeHead()"><el-avatar :src="userHead"></el-avatar></div>
+									<div style="font-size: 12px;color: #8c939d;">点击头像来更换</div>
 									<span class="sender">用户 - {{ dataForm.userName }}</span>
 								</div>
 								<div class="registe-info">
@@ -124,7 +141,7 @@
 </template>
 
 <script>
-import { updateUserMessage, getUserDetailMessage, getUser } from '@/api/user';
+import { updateUserMessage, getUserDetailMessage, getUser, getUserHead } from '@/api/user';
 export default {
 	name: 'userDetail',
 	data() {
@@ -151,6 +168,9 @@ export default {
 			isLogin: false,
 			userName: '',
 			userId: '',
+			userHead: '',
+			//是否要更换头像
+			ifChangeHead: false,
 			//禁用表单编辑
 			isInput: true,
 			activeName: 'first',
@@ -231,7 +251,9 @@ export default {
 						trigger: 'blur'
 					}
 				]
-			}
+			},
+			//头像地址
+			imageUrl: ''
 		};
 	},
 	methods: {
@@ -246,6 +268,10 @@ export default {
 		//获取用户id
 		getUserId() {
 			this.userId = this.$route.query.id;
+		},
+		//显示显示更换头像
+		changeHead() {
+			this.ifChangeHead = true;
 		},
 		//提交更新用户信息
 		submitUpdate(formName) {
@@ -271,6 +297,10 @@ export default {
 					.then(res => {
 						console.log(res);
 						this.dataForm = res.data.data;
+						//获取用户信息同时获取用户头像
+						getUserHead(this.userId).then(resp => {
+							this.userHead = resp.data.data;
+						});
 					})
 					.catch(err => {
 						console.error(err);
@@ -314,11 +344,32 @@ export default {
 				this.$router.go(0); //刷新页面
 				loading.close();
 			}, 500);
+		},
+		handleAvatarSuccess(res, file) {
+			console.log(res);
+			console.log(file);
+			this.$router.go(0); //刷新页面
+		},
+		beforeAvatarUpload(file) {
+			const isLt2M = file.size / 1024 / 1024 < 2;
+			if (!isLt2M) {
+				this.$message.error('上传头像图片大小不能超过 2MB!');
+			}
+			return isLt2M;
 		}
 	},
 	mounted() {
 		this.getUserId();
 		this.getUserInfo();
+	},
+	//upload携带请求头
+	computed: {
+		headers() {
+			return {
+				token: localStorage.getItem('token'),
+				userId: this.userId
+			};
+		}
 	}
 };
 </script>
@@ -412,5 +463,30 @@ export default {
 .row-bg {
 	padding: 10px 0;
 	background-color: #f9fafc;
+}
+
+/* 头像上传 */
+.avatar-uploader .el-upload {
+	border: 1px dashed #d9d9d9;
+	border-radius: 6px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+	border-color: #216fff;
+}
+.avatar-uploader-icon {
+	font-size: 28px;
+	color: #818790;
+	width: 178px;
+	height: 178px;
+	line-height: 178px;
+	text-align: center;
+}
+.avatar {
+	width: 178px;
+	height: 178px;
+	display: block;
 }
 </style>

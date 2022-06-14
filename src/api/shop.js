@@ -37,9 +37,30 @@ export function getAllSwiperPicture() {
 		.get('/uni-shop/index/getSwiperPicture');
 }
 
-
 //根据type获取商品列表
 export function getCommodityByType(type) {
 	return axios
 		.get('/uniapp-detail/get-commodity-type' + '?type=' + type);
+}
+
+//根据type类型获取商品列表 数量限制10
+export function getCommodityByTypeLimited(type) {
+	return axios
+		.get('/uni-shop/index/get-commodity-type-limited' + '?type=' + type);
+}
+
+
+//首页分页获取商品列表
+export function getCommodityPage(pageNum, pageSize) {
+	return axios
+		.get('/uni-shop/index/getPageCommodities' + "?pageNum=" + pageNum + "&pageSize=" +
+			pageSize);
+}
+
+
+//根据type --分页获取商品列表
+export function getCommodityTypePage(type, pageNum, pageSize) {
+	return axios
+		.get('/uni-shop/index/get-commodity-type-pages' + '?type=' + type + "&pageNum=" + pageNum + "&pageSize=" +
+			pageSize);
 }

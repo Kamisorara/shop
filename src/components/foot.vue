@@ -6,18 +6,24 @@
 					<div style="">
 						<div class="foot-title">帮助中心</div>
 						<div class="foot-item">账户管理</div>
+						<div class="foot-item">网站报错</div>
+						<div class="foot-item">bug修改</div>
 					</div>
 					<div style="margin-left: 100px">
 						<div class="foot-title">服务支持</div>
 						<div class="foot-item">购物指南</div>
+						<div class="foot-item">开源链接</div>
 					</div>
 					<div style="margin-left: 100px">
 						<div class="foot-title">线下门店</div>
-						<div class="foot-item">订单操作</div>
+						<div class="foot-item">没有门店</div>
+						<div class="foot-item">这就是期末作业</div>
 					</div>
 					<div style="margin-left: 100px">
 						<div class="foot-title">支付方式</div>
+						<div class="foot-item">中国银联</div>
 						<div class="foot-item">ji付宝</div>
+						<div class="foot-item">PayPal</div>
 					</div>
 				</div>
 				<div
@@ -35,7 +41,7 @@
               line-height: 40px;
             "
 					>
-						159********
+						<el-link type="info" href="https://github.com/Kamisorara/shop">本网站已在github开源</el-link>
 					</div>
 					<div style="color: gray">周一至周日0：00-24：00</div>
 					<div style="color: gray; margin-bottom: 10px">（全天在线）</div>
@@ -52,7 +58,7 @@
         color: #8c8c8c;
       "
 		>
-			本网站仅供娱乐专用--Kamisora-wyf
+			本网站是wyf的期末作业
 		</div>
 	</div>
 </template>

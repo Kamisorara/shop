@@ -2,11 +2,14 @@
 	<div class="main">
 		<el-container>
 			<el-aside width="200px">
+				<!-- 商品分类 -->
 				<el-card class="box-card">
-					<div slot="header" class="clearfix"><span style="font-size: 20px">商品分类</span></div>
+					<div slot="header" class="clearfix"><span style="font-size: 20px;font-weight: 700;">商品分类</span></div>
 					<div v-for="(item, index) in calssifications" :key="index" class="text item">
-						<i :class="item.icon"></i>
-						<a href="#" style="text-decoration: none; color: darkgrey" @click="toSearch(item.classificationName)">{{ item.classificationName }}</a>
+						<el-link>
+							<i :class="item.icon"></i>
+							<a href="#" style="text-decoration: none; color:#949494" @click="toSearch(item.classificationName)">{{ item.classificationName }}</a>
+						</el-link>
 					</div>
 				</el-card>
 			</el-aside>
@@ -26,7 +29,7 @@
 				<!-- 已登录 -->
 				<div v-show="isLogin">
 					<div class="demo-type">
-						<div><el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar></div>
+						<div><el-avatar :src="userHead"></el-avatar></div>
 					</div>
 					<p style="font-size: 20px">Hi,{{ userName }}</p>
 				</div>
@@ -34,7 +37,7 @@
 				<el-card class="box-card" style="width: 290px;">
 					<div slot="header" class="clearfix"><span style="font-size: 18px;font-weight: 600;">新闻公告板</span></div>
 					<div v-for="(item, index) in noticed" :key="index" class="board_item">
-						<a href="#" style="text-decoration: none; color: darkgrey;">● {{ item.notice }}</a>
+						<el-link type="info" :href="item.url">● {{ item.notice }}</el-link>
 					</div>
 				</el-card>
 			</el-aside>
@@ -42,17 +45,17 @@
 		<!-- 今日推荐 -->
 		<div style="height: 100px;display: flex;border-top: 1px solid #b8b8b8;border-left: 1px solid #b8b8b8;border-right: 1px solid #b8b8b8;margin-top: 70px;">
 			<div class="content-head" style="display: flex;border-bottom: 3px solid;height: 80px;width: 600px;">
-				<span style="font-size: 35px;margin-left: 20px;margin-top: 20px;font-weight: 700;">今日推荐</span>
+				<span style="font-size: 35px;margin-left: 20px;margin-top: 20px;font-weight: 700;">今日相机推荐</span>
 				<el-tag type="danger" style="margin-top: 30px;margin-left: 10px;">个性推荐</el-tag>
 			</div>
 			<div
+				v-on:mouseenter="changeCategory(index, item.type)"
 				v-for="(item, index) in categoryList"
 				:key="index"
-				@click="changeCategory(index, item.type)"
 				:class="{ 'border-category-selected': index == currentNum, 'border-category-unselected': index != currentNum }"
 				style="margin-top: 19px;height:60px;width: 104px;display: flex;"
 			>
-				<span style="font-size: 20px;margin-top: 15px;margin-left: 30px;">{{ item.name }}</span>
+				<el-link :underline="false" style="font-size: 19px;margin: auto;" @click="toSearch(item.name)">{{ item.name }}</el-link>
 			</div>
 		</div>
 		<!-- 商品列表 -->
@@ -79,10 +82,10 @@
 		<!-- 所有商品 -->
 		<div class="allCommodity" style="display: flex;height: 80px;margin-top: 20px;border: 1px solid #b83923;">
 			<span style="font-size: 30px; font-weight: 600;margin-top: 20px;margin-left: 20px;">看看全部商品吧！</span>
-			<span style="font-size: 20px;color: brown;font-weight: 600;margin-left: 800px;margin-top: 30px;">共（{{ Allproducts.length }}）件</span>
+			<span style="font-size: 20px;color: brown;font-weight: 600;margin-left: 800px;margin-top: 30px;">共（{{ pageMessage.total }}）件</span>
 		</div>
 		<div class="content" style="border:1px solid #c05f47;">
-			<div class="show" v-for="(product, index) in Allproducts" :key="index" @click="toDetail(product.id)">
+			<div class="show" v-for="(product, index) in pageMessage.records" :key="index" @click="toDetail(product.id)">
 				<div class="imgbg">
 					<el-image :src="product.mainPhoto" style="height: 200px; width: 200px;border-top-left-radius: 15px;border-top-right-radius: 15px;"></el-image>
 				</div>
@@ -100,12 +103,22 @@
 				</div>
 			</div>
 		</div>
+		<!-- 底部分页栏 -->
+		<div class="block" style="margin-left: 350px;margin-top: 30px;">
+			<el-pagination
+				@current-change="handleCurrentChange(pageNum)"
+				:current-page.sync="pageNum"
+				:page-size="20"
+				layout="prev, pager, next, jumper"
+				:total="pageMessage.total"
+			></el-pagination>
+		</div>
 	</div>
 </template>
 
 <script>
-import { getUser } from '@/api/user';
-import { getRecommended, getAllClassification, getNotice, getAllSwiperPicture, getCommodityByType } from '@/api/shop';
+import { getUser, getUserHead } from '@/api/user';
+import { getCommodityPage, getRecommended, getAllClassification, getNotice, getAllSwiperPicture, getCommodityByType, getCommodityByTypeLimited } from '@/api/shop';
 export default {
 	name: 'commodity',
 	data() {
@@ -113,6 +126,12 @@ export default {
 			isLogin: false,
 			userName: '',
 			userId: '',
+			userHead: '',
+			//page
+			pageSize: 6, //每页加载的个数
+			pageNum: 1, //当前的页数
+			totalPages: 0, //总页数
+			pageMessage: {},
 			fullscreenLoading: false,
 			//当前位置
 			currentNum: 0,
@@ -120,7 +139,8 @@ export default {
 			advertise: 'https://img.alicdn.com/tps/i4/TB1xcK0GXXXXXXTXFXXa3f9HXXX-990-50.jpeg',
 			noticed: [
 				{
-					notice: '等待网络链接中。。。'
+					notice: '等待网络链接中。。。',
+					url: ''
 				}
 			],
 			imagesbox: [],
@@ -154,33 +174,33 @@ export default {
 			categoryList: [
 				{
 					id: 1,
-					name: '显卡',
-					type: '显卡'
+					name: '单反相机',
+					type: '单反相机'
 				},
 				{
 					id: 2,
-					name: 'CPU',
-					type: 'CPU'
+					name: '数码相机',
+					type: '数码相机'
 				},
 				{
 					id: 3,
-					name: '相机',
-					type: '相机'
+					name: '拍立得',
+					type: '拍立得'
 				},
 				{
 					id: 5,
-					name: '主板',
-					type: '主板'
+					name: '旁轴相机',
+					type: '旁轴相机'
 				},
 				{
 					id: 6,
-					name: '内存',
-					type: '内存'
+					name: '单电/微单',
+					type: '微单'
 				},
 				{
 					id: 7,
-					name: '硬盘',
-					type: '硬盘'
+					name: '特殊相机',
+					type: '特殊相机'
 				}
 			]
 		};
@@ -206,7 +226,24 @@ export default {
 				}, 1000);
 			}
 		},
-
+		//获取用户头像
+		getUserHeadById() {
+			getUserHead(this.userId).then(res => {
+				console.log(res);
+			});
+		},
+		//分页栏切换
+		handleCurrentChange(val) {
+			console.log(`当前页: ${val}`);
+			this.getCommodityPages(val++);
+		},
+		//商品分页获取商品列表
+		getCommodityPages(pageNum) {
+			getCommodityPage(pageNum, 20).then(res => {
+				console.log(res);
+				this.pageMessage = res.data.data;
+			});
+		},
 		//登录界面
 		toLogin() {
 			this.$router.push('/login');
@@ -229,6 +266,7 @@ export default {
 					console.error(err);
 				});
 		},
+		//获取左侧分类板块
 		getClassification() {
 			getAllClassification()
 				.then(res => {
@@ -239,6 +277,7 @@ export default {
 					console.error(err);
 				});
 		},
+		//获取新闻板块
 		getAllNotice() {
 			getNotice()
 				.then(res => {
@@ -259,6 +298,11 @@ export default {
 							this.isLogin = true;
 							this.userName = res.data.data[1];
 							this.userId = res.data.data[0];
+							//获取用户通过token验证后获取头像
+							getUserHead(res.data.data[0]).then(resp => {
+								console.log(resp);
+								this.userHead = resp.data.data;
+							});
 						}
 					})
 					.catch(err => {
@@ -288,23 +332,31 @@ export default {
 		//导航栏动态切换
 		changeCategory(index, type) {
 			this.currentNum = index;
-			this.getCommodityType(type);
+			this.getCommodityTypeLimitedTen(type);
 		},
-		//根据type类型获取商品列表
+		//根据type类型获取商品列表（在首页中考虑弃用）
 		getCommodityType(type) {
 			getCommodityByType(type).then(res => {
+				console.log(res);
+				this.products = res.data.data;
+			});
+		},
+		//根据type类型获取商品列表数量限制10
+		getCommodityTypeLimitedTen(type) {
+			getCommodityByTypeLimited(type).then(res => {
 				console.log(res);
 				this.products = res.data.data;
 			});
 		}
 	},
 	mounted() {
-		this.getAllRecommended();
+		// this.getAllRecommended();
 		this.getClassification();
 		this.getAllNotice();
 		this.getUserInfo();
 		this.getAllSwiperPictures();
-		this.getCommodityType('显卡');
+		this.getCommodityTypeLimitedTen('单反相机');
+		this.getCommodityPages(1);
 	},
 	//过滤器，字数长度超过12直接省略
 	filters: {

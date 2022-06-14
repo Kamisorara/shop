@@ -8,7 +8,7 @@
         background-color: #e0d8db;
       "
 		>
-			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;"><a href="http://mall.kamisora.xyz" style="text-decoration: none;color:darkorange;">移动端</a></div>
+			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;"><a href="http://mall.kamisora.xyz" target=“_blank” style="text-decoration: none;color:darkorange;">移动端</a></div>
 			<div class="top-title" style="color: #8c8c8c;">会员中心</div>
 			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;">提交bug</div>
 			<div class="top-title" style="margin-left: 20px;color: #8c8c8c;">充值</div>
@@ -26,6 +26,7 @@
 							</span>
 							<el-dropdown-menu slot="dropdown">
 								<el-dropdown-item @click.native="toPerson()">个人中心</el-dropdown-item>
+								<el-dropdown-item><a href="http://back.kamisora.xyz" target=“_blank” style="text-decoration: none;color:aqua;">后台管理系统</a></el-dropdown-item>
 								<el-dropdown-item @click.native="logout">退出</el-dropdown-item>
 							</el-dropdown-menu>
 						</el-dropdown>
@@ -48,17 +49,21 @@
 				</div>
 			</div>
 		</div>
-		<div style=" margin-left: 100px;height: 90px; line-height: 80px">
-			<div style="display: flex">
-				<img src="../assets/KamisoraMallLogo.png" style="cursor: pointer; height: 80px;" />
-				<div class="title" style="margin-left: 30px" @click="toIndex">首页</div>
-				<div class="title">电子产品</div>
-				<div class="title">家具家电</div>
-				<div class="title">母婴用品</div>
-				<div class="title">零食食品</div>
-				<div class="title">联系我们</div>
-				<div style="flex: 1;margin-left: 200px;">
-					<el-input placeholder="请输入查找的商品" v-model="input" style="width: 500px"><el-button slot="append" icon="el-icon-search"></el-button></el-input>
+		<div style=" margin-left: 100px;height: 70px; line-height: 80px">
+			<div style="display: flex;">
+				<img src="../assets/KamisoraMallLogo.png"  @click="toIndex" style="cursor: pointer; height: 80px;" />
+				<div style="display: flex;">
+					<div class="title" style="margin-left: 10px;" @click="toIndex"><el-link :underline="false" class="title-font">首页</el-link></div>
+					<div class="title"><el-link :underline="false" class="title-font">推荐</el-link></div>
+					<div class="title"><el-link :underline="false" class="title-font">直播</el-link></div>
+					<div class="title"><el-link :underline="false" class="title-font">合作</el-link></div>
+					<div class="title"><el-link :underline="false" class="title-font">二手</el-link></div>
+					<div class="title"><el-link :underliner="false" class="title-font" href="https://github.com/Kamisorara">Github</el-link></div>
+				</div>
+				<div style="flex: 1;margin-left: 300px;">
+					<el-input placeholder="请输入查找的商品" v-model="input" @keyup.enter.native="toSearch(input)" style="width: 350px">
+						<el-button @click="toSearch(input)" slot="append" icon="el-icon-search"></el-button>
+					</el-input>
 				</div>
 			</div>
 		</div>
@@ -105,6 +110,13 @@ export default {
 				path: '/home/index'
 			});
 		},
+		//搜索界面（分类界面）
+		toSearch(name) {
+			this.$router.push({
+				path: '/search',
+				query: { classifyName: name }
+			});
+		},
 		//回到主页面
 		toIndex() {
 			this.openFullScreen();
@@ -139,6 +151,7 @@ export default {
 				}, 1000);
 			}
 		},
+		//退出操作
 		logout() {
 			logout()
 				.then(res => {
@@ -205,5 +218,10 @@ export default {
 	margin-right: 20px;
 	cursor: pointer;
 	color: gray;
+}
+
+.title-font {
+	font-size: 20px;
+	font-weight: 600;
 }
 </style>

@@ -41,3 +41,10 @@ export function getUserDetailMessage(id) {
 	return axios
 		.post("/user/user-info-detail-get?userId=" + id)
 }
+
+
+//根据id获取用户详细信息
+export function getUserHead(id) {
+	return axios
+		.get("/user/get-user-head?id=" + id)
+}
